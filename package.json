@@ -1,0 +1,29 @@
+{
+  "name": "nonews",
+  "version": "1.0.0",
+  "description": "news scraping thingy",
+  "main": "index.js",
+  "scripts": {
+    "test": "jest"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/ShmouG/NoNews.git"
+  },
+  "keywords": [
+    "news"
+  ],
+  "author": "Me",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/ShmouG/NoNews/issues"
+  },
+  "homepage": "https://github.com/ShmouG/NoNews#readme",
+  "dependencies": {
+    "axios": "^0.18.0",
+    "cheerio": "^1.0.0-rc.2",
+    "express": "^4.16.4",
+    "express-handlebars": "^3.0.0",
+    "mongoose": "^5.3.9"
+  }
+}
