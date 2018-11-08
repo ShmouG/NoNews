@@ -12,9 +12,9 @@ const PORT = process.env.PORT || 3000;
 const app = express();
 
 // respond with "hello world" when a GET request is made to the homepage
-app.get('/', (req, res) => {
-  res.send('hello world');
-});
+// app.get('/', (req, res) => {
+//   res.send('hello world');
+// });
 
 const MONGODB_URI = process.env.MONGODB_URI || 'mongodb://localhost/mongoHeadlines';
 
