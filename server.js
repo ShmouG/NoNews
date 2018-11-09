@@ -36,12 +36,12 @@ app.use(express.static('public'));
 // A GET route for scraping the echoJS website
 app.get('/scrape', (req, res) => {
   // First, we grab the body of the html with axios
-  axios.get('http://www.echojs.com/').then((response) => {
+  axios.get('https://old.reddit.com/r/Showerthoughts/').then((response) => {
     // Then, we load that into cheerio and save it to $ for a shorthand selector
     const $ = cheerio.load(response.data);
 
     // Now, we grab every h2 within an article tag, and do the following:
-    $('article h2').each(function (i, element) {
+    $('p.title').each(function (i, element) {
       // Save an empty result object
       const result = {};
 
@@ -86,10 +86,10 @@ app.get('/articles/:id', (req, res) => {
   // Finish the route so it finds one article using the req.params.id,
   // and run the populate method with "note",
   // then responds with the article with the note included
-  db.Article.findById(req.params.id)
-    .populate('comment')
-    .then((article) => {
-      res.json(article);
+  db.Article.findById( {_id: req.params.id})
+    .populate('note')
+    .then((dbArticle) => {
+      res.json(dbArticle);
     })
     .catch((err) => {
       res.json(err);
@@ -99,13 +99,19 @@ app.get('/articles/:id', (req, res) => {
 // Route for saving/updating an Article's associated Note
 app.post('/articles/:id', (req, res) => {
   db.Note.create(req.body)
-    .then(dbNote => db.Article.findByIdAndUpdate(
+    .then((dbNote) => {
+      return db.Article.findByIdAndUpdate(
       req.params.id,
       { note: dbNote._id },
       { new: true },
-    ))
-    .then((updatedArticle) => {
-      res.json(updatedArticle);
+    )}
+    )
+    .then((dbArticle) => {
+      res.json(dbArticle);
+    })
+    .catch(function(err) {
+      // If an error occurred, send it to the client
+      res.json(err);
     });
 });
 
