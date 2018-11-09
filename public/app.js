@@ -1,4 +1,3 @@
-// Grab the articles as a json
 $.getJSON("/articles", function(data) {
     // For each one
     for (var i = 0; i < data.length; i++) {
@@ -13,7 +12,7 @@ $.getJSON("/articles", function(data) {
     // Empty the notes from the note section
     $("#notes").empty();
     // Save the id from the p tag
-    var thisId = $(this).attr("data-id");
+    const thisId = $(this).attr("data-id");
   
     // Now make an ajax call for the Article
     $.ajax({
@@ -30,14 +29,14 @@ $.getJSON("/articles", function(data) {
         // A textarea to add a new note body
         $("#notes").append("<textarea id='bodyinput' name='body'></textarea>");
         // A button to submit a new note, with the id of the article saved to it
-        $("#notes").append("<button data-id='" + data._id + "' id='savenote'>Save Note</button>");
+        $("#notes").append("<button data-id='" + data._id + "' id='savenote'>Save Comment</button>");
   
         // If there's a note in the article
-        if (data.note) {
+        if (data.comment) {
           // Place the title of the note in the title input
-          $("#titleinput").val(data.note.title);
+          $("#titleinput").val(data.comment.title);
           // Place the body of the note in the body textarea
-          $("#bodyinput").val(data.note.body);
+          $("#bodyinput").val(data.comment.body);
         }
       });
   });
